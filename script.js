@@ -249,6 +249,8 @@ const typingGround = document.querySelector('#textarea');
 const btn = document.querySelector('#btn');
 const showSentence = document.querySelector('#showSentence');
 const timerDisplay = document.querySelector('#timer');
+const loading = document.querySelector('#loading');
+
 
 let startTime, endTime, totalTimeTaken;
 let countdown;
@@ -305,9 +307,11 @@ const endTyping = () => {
     let date = new Date();
     endTime = date.getTime();
     totalTimeTaken = (endTime - startTime) / 1000;
-    calculateTypingSpeed(totalTimeTaken);
-    showSentence.innerHTML = '';
-    typingGround.value = '';
+    showLoadingSpinner(() => {
+        calculateTypingSpeed(totalTimeTaken);
+        showSentence.innerHTML = '';
+        typingGround.value = '';
+    });
 };
 
 const startTimer = () => {
@@ -370,5 +374,17 @@ const splitText = (text) => {
     return text.match(/[\w']+|[.,!?;'"-]/g) || [];
 };
 
+
+// Show loading spinner for 2 seconds before displaying result
+const showLoadingSpinner = (callback) => {
+    loading.style.display = 'block';
+    setTimeout(() => {
+        loading.style.display = 'none';
+        callback();
+    }, 2000);
+};
+
 // Fetch sentences on page load
 fetchSentences();
+
+
