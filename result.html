@@ -1,0 +1,221 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test - View Your Score</title>
+    <style>
+        body{
+            height: 100vh;
+            width: 80vw; 
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Shadow effect */
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+            background-color: rgb(227, 239, 234);
+        }
+        h2{
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 40vh;
+        }
+        .circle{
+            background-color: #3498db;
+            border-radius: 50%;
+            height: 100px;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+        }
+        .best{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(173, 220, 173);
+        }
+        .container2{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container2 h2{
+            margin-bottom: 4rem;
+        }
+    </style>
+</head>
+<body>
+    
+    <h2>Your Test Score</h2>
+    <div class="container">
+        <div class="circle">WPM</div>
+        <p>WPM</p>
+        <h2>X</h2>
+        <div class="circle">Accuracy</div>
+        <h2>=</h2>
+        <div class="circle">Score</div>
+    </div>
+    <hr>
+    <div class="container2">
+    <h2>Your Best Score</h2>
+    <div class="best circle">Best</div>
+    </div>
+</body>
+<!-- </html>  -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test - View Your Score</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 80vw;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3); /* Shadow effect */
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+            background-color: rgb(228, 238, 228);
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 40vh;
+        }
+
+        .circle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .circle {
+            background-color: #3498db;
+            border-radius: 50%;
+            height: 100px;
+            width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .best {
+            background-color: rgb(115, 224, 115);
+        }
+
+        .container2 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            /* height: 30vh; Adjust height as needed */
+        }
+
+        .container2 h2 {
+            margin-bottom: 3rem; /* Adjust margin as needed */
+        }
+        #congratsMessage{
+            font-size: larger;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 500;
+        }
+        button{
+            border-radius: 8px;
+            height: 35px;
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Your Test Score</h2>
+    <div class="container">
+        <div class="circle-container">
+            <div class="circle" id="typingSpeed"></div>
+            <p>WPM</p>
+        </div>
+        <h2>X</h2>
+        <div class="circle-container">
+            <div class="circle" id="accuracy"></div>
+            <p>Accuracy</p>
+        </div>
+        <h2>=</h2>
+        <div class="circle-container">
+            <div class="circle" id="score"></div>
+            <p>Score</p>
+        </div>
+    </div>
+    <hr>
+    <div class="container2">
+        <h2>Your Best Score</h2>
+        <div class="circle best" id="bestScore"></div>
+        <div id="congratsMessage"></div>
+    </div>
+    <button id="retakeButton">Retake Test</button>
+    <script>
+        // Function to get query parameters
+        const getQueryParams = () => {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                typingSpeed: params.get('typingSpeed'),
+                accuracy: params.get('accuracy'),
+                score: params.get('score'),
+                bestScore: params.get('bestScore'),
+                isNewBest: params.get('isNewBest')
+            };
+        };
+
+        // Function to display results
+        const displayResults = () => {
+            const { typingSpeed, accuracy, score, bestScore, isNewBest } = getQueryParams();
+            document.getElementById('typingSpeed').innerText = typingSpeed;
+            document.getElementById('accuracy').innerText = `${accuracy}%`;
+            document.getElementById('score').innerText = score;
+            document.getElementById('bestScore').innerText = bestScore;
+            //console.log(isNewBest);
+            if (isNewBest === '1') {
+                document.getElementById('congratsMessage').innerText = `Congratulations! You achieved a new best score of ${bestScore}.`;
+            }
+        };
+
+        document.getElementById('retakeButton').addEventListener('click', () => {
+            window.location.href = 'index.html'; // Redirect to the typing test page
+        });
+
+        // Display results on page load
+        window.onload = displayResults;
+    </script>
+</body>
+</html>
