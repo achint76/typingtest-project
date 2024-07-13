@@ -82,6 +82,9 @@ h2{
     }
     #textarea {
         height: 300px;
-        width: 400px;
+        width: 350px;
+    }
+    #timer{
+        margin-left: 3px;
     }
 }
